@@ -1,5 +1,4 @@
-target/
-.metadata/
-.recommenders/
-*.class
+/target/
+**/target/
+**/src-gen/
 .DS_Store

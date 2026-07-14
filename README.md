@@ -1,13 +1,30 @@
-# EMF Model Generator Tycho update site
+# EMF Model Generator update site
 
-This is a multi-module Maven/Tycho 5.0.3 build that creates a p2 update site for the EMF Model Generator.
+This is a Tycho 5.0.3 multi-module build that creates a p2 update site for the EMF Model Generator Maven Central artifact.
 
 ## Modules
 
-- `emf.model.generator.targetplatform`: Eclipse target definition using the Eclipse 2026-06 repository and EMF runtime bundles.
-- `emf.model.generator.feature`: feature containing the EMF Model Generator bundle.
-- `emf.model.generator.feature.source`: explicit source feature containing the EMF Model Generator source bundle.
-- `emf.model.generator.repository`: p2 repository/update site with runtime and source categories.
+- `emf.model.generator.parent`: parent Maven project.
+- `emf.model.generator.targetplatform`: target definition using Eclipse 2026-06.
+- `emf.model.generator.feature`: binary feature containing the `emf-model-generator` bundle.
+- `emf-model-generator.source`: local PDE source bundle created from the Maven Central `sources` classifier.
+- `emf.model.generator.feature.source`: source feature containing `emf-model-generator.source` and including the binary feature.
+- `emf.model.generator.repository`: p2 update site with runtime and source categories.
+
+## Why there is a source-bundle module
+
+The Maven Central artifact `io.github.lorenzobettini:emf-model-generator:1.0.0` is usable by Tycho as an OSGi bundle through `pomDependencies=consider`.
+
+However, `io.github.lorenzobettini:emf-model-generator:1.0.0:sources` is a plain Maven source archive, not a PDE source bundle. Therefore it does not provide the installable unit `emf-model-generator.source`, and a source feature that references that IU cannot resolve.
+
+The module `emf-model-generator.source` solves this by unpacking the Maven Central `sources` classifier into `src-gen/` and packaging a real Eclipse source bundle with:
+
+```text
+Bundle-SymbolicName: emf-model-generator.source
+Eclipse-SourceBundle: emf-model-generator;version="1.0.0";roots:="src-gen"
+```
+
+This keeps the actual source content coming from Maven Central, while producing the PDE metadata that Eclipse and p2 expect.
 
 ## Build
 
@@ -15,30 +32,40 @@ This is a multi-module Maven/Tycho 5.0.3 build that creates a p2 update site for
 mvn clean verify
 ```
 
-The update site is produced in:
+The generated update site is under:
 
 ```text
-emf.model.generator.repository/target/repository/
+emf.model.generator.repository/target/repository
 ```
 
-You can override the EMF Model Generator release version with:
+## Updating to a different EMF Model Generator release
 
-```sh
-mvn clean verify -Demf.model.generator.version=1.0.0
+When changing the release, update these places consistently:
+
+1. `emf.model.generator.version` in the parent `pom.xml`.
+2. `Bundle-Version` in `emf-model-generator.source/META-INF/MANIFEST.MF`.
+3. `Eclipse-SourceBundle` version in `emf-model-generator.source/META-INF/MANIFEST.MF`.
+4. Feature versions if you want the feature version to track the released bundle version.
+
+For example, for `1.0.1`, use:
+
+```text
+Bundle-Version: 1.0.1.qualifier
+Eclipse-SourceBundle: emf-model-generator;version="1.0.1";roots:="src-gen"
 ```
 
-## Maven Central artifacts
+## Notes
 
-The main EMF Model Generator bundle currently uses `emf-model-generator` as its `Bundle-SymbolicName`, so the runtime feature includes the plug-in `emf-model-generator`.
+The target definition references `https://download.eclipse.org/releases/2026-06` and selects the required EMF bundles:
 
-The Maven Central `-sources.jar` is a plain Maven source archive, not a PDE source bundle. The parent POM therefore uses `pomDependencies=wrapAsBundle`, so Tycho can wrap that source archive and make the `emf-model-generator.source` IU available to the explicit source feature.
+- `org.eclipse.emf.common`
+- `org.eclipse.emf.ecore`
+- `org.eclipse.emf.ecore.xmi`
 
-## Why the Maven dependencies are in the parent POM
+The runtime Maven artifact is not listed in the `.target` file itself. It is declared as a parent-POM dependency and made visible to Tycho via:
 
-The Maven Central artifacts are declared in the parent POM because Tycho's `pomDependencies` mechanism is project-scoped: downstream Tycho modules must all see the Maven OSGi bundles in their own target platform. The `.target` file defines the p2/Eclipse side of the target platform; the parent dependencies define the Maven Central side.
+```xml
+<pomDependencies>consider</pomDependencies>
+```
 
-## Why `pomDependencies=wrapAsBundle` is used
-
-`pomDependencies=consider` is enough for the runtime artifact because `emf-model-generator` is already an OSGi bundle. It is not enough for the Maven `sources` classifier: that artifact is a plain Maven sources jar, so Tycho ignores it and the source feature cannot resolve `emf-model-generator.source`.
-
-Using `pomDependencies=wrapAsBundle` keeps the runtime bundle behavior and additionally lets Tycho generate OSGi metadata for the non-bundle source archive.
+Do not use `wrapAsBundle` for this build: it wraps the plain source archive as a generic bundle with a generated symbolic name, but that does not create the expected PDE source bundle `emf-model-generator.source`.
