@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>io.github.lorenzobettini</groupId>
+  <artifactId>emf.model.generator.parent</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <name>EMF Model Generator Update Site Parent</name>
+  <description>Tycho build for the EMF Model Generator p2 update site.</description>
+  <url>https://github.com/LorenzoBettini/emf-model-generator</url>
+
+  <modules>
+    <module>emf.model.generator.targetplatform</module>
+    <module>emf.model.generator.feature</module>
+    <module>emf.model.generator.feature.source</module>
+    <module>emf.model.generator.repository</module>
+  </modules>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <tycho.version>5.0.3</tycho.version>
+
+    <!-- Change this to the released Maven Central version you want to publish in the p2 site. -->
+    <emf.model.generator.version>1.0.0</emf.model.generator.version>
+
+    <!-- The EMF Model Generator bundle currently uses the Maven artifactId as Bundle-SymbolicName. -->
+    <emf.model.generator.bundle.id>emf-model-generator</emf.model.generator.bundle.id>
+    <emf.model.generator.source.bundle.id>emf-model-generator.source</emf.model.generator.source.bundle.id>
+  </properties>
+
+  <licenses>
+    <license>
+      <name>Eclipse Public License - v 2.0</name>
+      <url>https://www.eclipse.org/legal/epl-2.0/</url>
+    </license>
+  </licenses>
+
+  <!--
+    These Maven artifacts are intentionally declared in the parent POM.
+    With target-platform-configuration/pomDependencies=consider, Tycho turns
+    Maven dependencies that already are OSGi bundles into target-platform IUs.
+    Keep them here so every downstream Tycho module sees the same target platform.
+  -->
+  <dependencies>
+    <dependency>
+      <groupId>io.github.lorenzobettini</groupId>
+      <artifactId>emf-model-generator</artifactId>
+      <version>${emf.model.generator.version}</version>
+    </dependency>
+
+    <!--
+      This assumes the Maven Central sources classifier is published as a real
+      Eclipse source bundle with Bundle-SymbolicName emf-model-generator.source
+      and an Eclipse-SourceBundle header. If it is only a plain Maven sources jar,
+      replace this dependency with the actual source-bundle artifact or generate
+      an Eclipse source bundle in the upstream project.
+    -->
+    <dependency>
+      <groupId>io.github.lorenzobettini</groupId>
+      <artifactId>emf-model-generator</artifactId>
+      <version>${emf.model.generator.version}</version>
+      <classifier>sources</classifier>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.eclipse.tycho</groupId>
+          <artifactId>target-platform-configuration</artifactId>
+          <version>${tycho.version}</version>
+          <configuration>
+            <target>
+              <artifact>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>emf.model.generator.targetplatform</artifactId>
+                <version>${project.version}</version>
+              </artifact>
+            </target>
+            <pomDependencies>consider</pomDependencies>
+            <targetDefinitionIncludeSource>force</targetDefinitionIncludeSource>
+            <executionEnvironment>JavaSE-21</executionEnvironment>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.eclipse.tycho</groupId>
+          <artifactId>tycho-p2-repository-plugin</artifactId>
+          <version>${tycho.version}</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
+    <plugins>
+      <plugin>
+        <groupId>org.eclipse.tycho</groupId>
+        <artifactId>tycho-maven-plugin</artifactId>
+        <version>${tycho.version}</version>
+        <extensions>true</extensions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

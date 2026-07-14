@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature id="emf.model.generator.feature" version="0.0.0">
+      <category name="emf.model.generator"/>
+   </feature>
+
+   <feature id="emf.model.generator.feature.source" version="0.0.0">
+      <category name="emf.model.generator.sources"/>
+   </feature>
+
+   <category-def name="emf.model.generator" label="EMF Model Generator">
+      <description>
+         EMF Model Generator runtime feature.
+      </description>
+   </category-def>
+
+   <category-def name="emf.model.generator.sources" label="EMF Model Generator Sources">
+      <description>
+         Source feature for EMF Model Generator.
+      </description>
+   </category-def>
+</site>

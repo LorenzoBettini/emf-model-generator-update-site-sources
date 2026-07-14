@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>io.github.lorenzobettini</groupId>
+    <artifactId>emf.model.generator.parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>emf.model.generator.repository</artifactId>
+  <packaging>eclipse-repository</packaging>
+
+  <name>EMF Model Generator Repository</name>
+  <description>p2 update site for EMF Model Generator.</description>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.eclipse.tycho</groupId>
+        <artifactId>target-platform-configuration</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.eclipse.tycho</groupId>
+        <artifactId>tycho-p2-repository-plugin</artifactId>
+        <configuration>
+          <repositoryName>EMF Model Generator</repositoryName>
+          <includeAllDependencies>true</includeAllDependencies>
+          <includeAllSources>true</includeAllSources>
+          <compress>true</compress>
+          <xzCompress>true</xzCompress>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="emf.model.generator.feature.source"
+      label="EMF Model Generator Sources"
+      version="1.0.0.qualifier"
+      provider-name="Lorenzo Bettini">
+
+   <description>
+      Source feature for EMF Model Generator.
+   </description>
+
+   <copyright>
+      Copyright (c) Lorenzo Bettini and contributors. All rights reserved.
+   </copyright>
+
+   <license url="https://www.eclipse.org/legal/epl-2.0/">
+      This feature is made available under the Eclipse Public License 2.0.
+   </license>
+
+   <includes
+         id="emf.model.generator.feature"
+         version="0.0.0"/>
+
+   <plugin
+         id="emf-model-generator.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>
