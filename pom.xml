@@ -16,7 +16,6 @@
   <modules>
     <module>emf.model.generator.targetplatform</module>
     <module>emf.model.generator.feature</module>
-    <module>emf-model-generator.source</module>
     <module>emf.model.generator.feature.source</module>
     <module>emf.model.generator.repository</module>
   </modules>
@@ -40,23 +39,6 @@
     </license>
   </licenses>
 
-  <!--
-    The runtime artifact is declared in the parent so all downstream Tycho modules
-    see it in their target platform through pomDependencies=consider.
-
-    Do not declare the Maven sources classifier here: emf-model-generator-*-sources.jar
-    is a plain Maven source archive, not an OSGi/PDE source bundle. The local
-    emf-model-generator.source module below turns that archive into a real Eclipse
-    source bundle with the expected emf-model-generator.source IU.
-  -->
-  <dependencies>
-    <dependency>
-      <groupId>io.github.lorenzobettini</groupId>
-      <artifactId>emf-model-generator</artifactId>
-      <version>${emf.model.generator.version}</version>
-    </dependency>
-  </dependencies>
-
   <build>
     <pluginManagement>
       <plugins>
@@ -72,7 +54,6 @@
                 <version>${project.version}</version>
               </artifact>
             </target>
-            <pomDependencies>consider</pomDependencies>
             <targetDefinitionIncludeSource>force</targetDefinitionIncludeSource>
             <executionEnvironment>JavaSE-21</executionEnvironment>
           </configuration>
