@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMF Model Generator Source
+Bundle-SymbolicName: emf-model-generator.source;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: Lorenzo Bettini
+Eclipse-SourceBundle: emf-model-generator;version="1.0.0";roots:="src-gen"
+
