@@ -2,7 +2,7 @@
 <feature
       id="emf.model.generator.feature.source"
       label="EMF Model Generator Sources"
-      version="1.0.0.qualifier"
+      version="1.0.0"
       provider-name="Lorenzo Bettini">
 
    <description>
