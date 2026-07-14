@@ -41,9 +41,13 @@
 
   <!--
     These Maven artifacts are intentionally declared in the parent POM.
-    With target-platform-configuration/pomDependencies=consider, Tycho turns
-    Maven dependencies that already are OSGi bundles into target-platform IUs.
-    Keep them here so every downstream Tycho module sees the same target platform.
+    With target-platform-configuration/pomDependencies=wrapAsBundle, Tycho turns
+    Maven dependencies that already are OSGi bundles into target-platform IUs and
+    wraps non-OSGi artifacts when needed. This is required for the Maven Central
+    sources classifier, which is a plain Maven sources jar rather than a PDE
+    source bundle.
+    Keep these dependencies here so every downstream Tycho module sees the same
+    target platform.
   -->
   <dependencies>
     <dependency>
@@ -53,11 +57,8 @@
     </dependency>
 
     <!--
-      This assumes the Maven Central sources classifier is published as a real
-      Eclipse source bundle with Bundle-SymbolicName emf-model-generator.source
-      and an Eclipse-SourceBundle header. If it is only a plain Maven sources jar,
-      replace this dependency with the actual source-bundle artifact or generate
-      an Eclipse source bundle in the upstream project.
+      The sources classifier is currently a plain Maven sources jar. Tycho wraps
+      it as an OSGi source bundle because pomDependencies is set to wrapAsBundle.
     -->
     <dependency>
       <groupId>io.github.lorenzobettini</groupId>
@@ -82,7 +83,7 @@
                 <version>${project.version}</version>
               </artifact>
             </target>
-            <pomDependencies>consider</pomDependencies>
+            <pomDependencies>wrapAsBundle</pomDependencies>
             <targetDefinitionIncludeSource>force</targetDefinitionIncludeSource>
             <executionEnvironment>JavaSE-21</executionEnvironment>
           </configuration>
