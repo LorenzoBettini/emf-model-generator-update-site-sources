@@ -27,7 +27,6 @@
         <artifactId>tycho-p2-repository-plugin</artifactId>
         <configuration>
           <repositoryName>EMF Model Generator</repositoryName>
-          <includeAllDependencies>true</includeAllDependencies>
           <includeAllSources>true</includeAllSources>
           <compress>true</compress>
           <xzCompress>true</xzCompress>
