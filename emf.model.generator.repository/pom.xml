@@ -20,10 +20,6 @@
     <plugins>
       <plugin>
         <groupId>org.eclipse.tycho</groupId>
-        <artifactId>target-platform-configuration</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.eclipse.tycho</groupId>
         <artifactId>tycho-p2-repository-plugin</artifactId>
         <configuration>
           <repositoryName>EMF Model Generator</repositoryName>

@@ -15,12 +15,4 @@
 
   <name>EMF Model Generator Feature</name>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.eclipse.tycho</groupId>
-        <artifactId>target-platform-configuration</artifactId>
-      </plugin>
-    </plugins>
-  </build>
 </project>

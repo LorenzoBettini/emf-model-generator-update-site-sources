@@ -44,22 +44,6 @@
       <plugins>
         <plugin>
           <groupId>org.eclipse.tycho</groupId>
-          <artifactId>target-platform-configuration</artifactId>
-          <version>${tycho.version}</version>
-          <configuration>
-            <target>
-              <artifact>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>emf.model.generator.targetplatform</artifactId>
-                <version>${project.version}</version>
-              </artifact>
-            </target>
-            <targetDefinitionIncludeSource>force</targetDefinitionIncludeSource>
-            <executionEnvironment>JavaSE-21</executionEnvironment>
-          </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.eclipse.tycho</groupId>
           <artifactId>tycho-p2-repository-plugin</artifactId>
           <version>${tycho.version}</version>
         </plugin>
@@ -77,6 +61,22 @@
         <artifactId>tycho-maven-plugin</artifactId>
         <version>${tycho.version}</version>
         <extensions>true</extensions>
+      </plugin>
+      <plugin>
+        <groupId>org.eclipse.tycho</groupId>
+        <artifactId>target-platform-configuration</artifactId>
+        <version>${tycho.version}</version>
+        <configuration>
+          <target>
+            <artifact>
+              <groupId>${project.groupId}</groupId>
+              <artifactId>emf.model.generator.targetplatform</artifactId>
+              <version>${project.version}</version>
+            </artifact>
+          </target>
+          <targetDefinitionIncludeSource>force</targetDefinitionIncludeSource>
+          <executionEnvironment>JavaSE-21</executionEnvironment>
+        </configuration>
       </plugin>
     </plugins>
   </build>
