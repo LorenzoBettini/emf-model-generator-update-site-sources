@@ -1,0 +1,21 @@
+version: 2
+updates:
+  - package-ecosystem: "maven"
+    directories:
+      - "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 10
+    groups:
+      # update official plugins in a single pull request
+      maven-plugin-updates:
+        patterns:
+         - "org.apache.maven.plugins:*"
+      eclipse-plugin-updates:
+        patterns:
+         - "org.eclipse.*:*"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
