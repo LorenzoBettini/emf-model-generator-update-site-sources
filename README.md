@@ -184,6 +184,13 @@ The generated update site is created under:
 emf.model.generator.repository/target/repository
 ```
 
+Its contents are also copied to a versioned directory suitable for inclusion in
+a composite repository:
+
+```text
+emf.model.generator.repository/target/composite/1.0.0
+```
+
 You can use that directory directly as a local Eclipse update site, or publish its contents to a web server.
 
 ## Using the generated update site in Eclipse
