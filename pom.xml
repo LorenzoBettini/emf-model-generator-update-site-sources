@@ -22,7 +22,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<tycho.version>5.0.3</tycho.version>
+		<tycho.version>5.0.4</tycho.version>
 
 		<!-- Change this to the released Maven Central version you want to
 		publish in the p2 site. -->
