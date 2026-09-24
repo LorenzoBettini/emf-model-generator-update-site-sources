@@ -184,12 +184,21 @@ The generated update site is created under:
 emf.model.generator.repository/target/repository
 ```
 
-Its contents are also copied to a versioned directory suitable for inclusion in
-a composite repository:
+The build also creates a complete composite repository. Its root contains the
+composite metadata, while the generated update site is copied into a versioned
+child directory:
 
 ```text
-emf.model.generator.repository/target/composite/1.0.0
+emf.model.generator.repository/target/composite/
+├── compositeArtifacts.xml
+├── compositeContent.xml
+├── p2.index
+└── 1.0.0/
 ```
+
+On the first build of a new project version, the source composite descriptors
+are updated with that version before they are copied. Rebuilding the same
+version leaves the source descriptors unchanged.
 
 You can use that directory directly as a local Eclipse update site, or publish its contents to a web server.
 

@@ -29,10 +29,50 @@
 				</configuration>
 			</plugin>
 			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>3.6.4</version>
+				<executions>
+					<execution>
+						<id>update-composite-metadata</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>${java.home}/bin/java</executable>
+							<arguments>
+								<argument>${project.basedir}/build-tools/UpdateCompositeMetadata.java</argument>
+								<argument>${project.version}</argument>
+								<argument>${project.basedir}/composite/compositeContent.xml</argument>
+								<argument>${project.basedir}/composite/compositeArtifacts.xml</argument>
+							</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
 				<version>3.3.1</version>
 				<executions>
+					<execution>
+						<id>copy-composite-metadata</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/composite</outputDirectory>
+							<overwrite>true</overwrite>
+							<resources>
+								<resource>
+									<directory>${project.basedir}/composite</directory>
+									<filtering>false</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
 					<execution>
 						<id>copy-repository-to-composite</id>
 						<phase>verify</phase>
@@ -41,6 +81,7 @@
 						</goals>
 						<configuration>
 							<outputDirectory>${project.build.directory}/composite/${project.version}</outputDirectory>
+							<overwrite>true</overwrite>
 							<resources>
 								<resource>
 									<directory>${project.build.directory}/repository</directory>
