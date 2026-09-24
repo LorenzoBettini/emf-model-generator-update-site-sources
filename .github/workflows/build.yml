@@ -16,6 +16,7 @@ jobs:
         java-version: 21
         distribution: temurin
         cache: maven
+        show-download-progress: true
 
     - name: Build with Maven/Tycho
       run: >
