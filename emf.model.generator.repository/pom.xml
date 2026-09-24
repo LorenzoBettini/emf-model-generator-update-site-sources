@@ -32,6 +32,9 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>3.6.4</version>
+				<!-- The repository module has no Java compilation lifecycle. Launch the
+				     helper directly with Java 21 source-file mode instead of exec:java,
+				     which requires an already compiled class on the project classpath. -->
 				<executions>
 					<execution>
 						<id>update-composite-metadata</id>
