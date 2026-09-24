@@ -15,18 +15,11 @@ jobs:
       with:
         java-version: 21
         distribution: temurin
-
-    - name: Cache Maven packages
-      uses: actions/cache@v6
-      with:
-        path: |
-          ~/.m2
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml', '**/*.target', '**/maven-wrapper.properties') }}
-        restore-keys: ${{ runner.os }}-m2-
+        cache: maven
 
     - name: Build with Maven/Tycho
       run: >
-        mvn verify
+        ./mvnw verify
 
     - name: Archive Repository
       uses: actions/upload-artifact@v7
