@@ -27,4 +27,4 @@ jobs:
       if: ${{ success() }}
       with:
         name: repository-${{ runner.os }}
-        path: '**/*.repository/target/repository'
+        path: '**/*.repository/target/composite'
