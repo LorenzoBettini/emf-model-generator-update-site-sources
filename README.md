@@ -10,7 +10,7 @@ The update site publishes two Eclipse features:
 The EMF Model Generator runtime bundle and source bundle are resolved from the Maven Central artifact:
 
 ```text
-io.github.lorenzobettini:emf-model-generator:1.0.0
+io.github.lorenzobettini:emf-model-generator:1.1.0
 ```
 
 The runtime artifact is an OSGi bundle. The source bundle is made available through the Maven-based target-platform location in the `.target` file, so this project does not need to generate a local source-bundle module.
@@ -77,7 +77,7 @@ The second location is a Maven target-platform location that resolves the EMF Mo
     <dependency>
       <groupId>io.github.lorenzobettini</groupId>
       <artifactId>emf-model-generator</artifactId>
-      <version>1.0.0</version>
+      <version>1.1.0</version>
       <type>jar</type>
     </dependency>
   </dependencies>
@@ -193,7 +193,7 @@ emf.model.generator.repository/target/composite/
 ├── compositeArtifacts.xml
 ├── compositeContent.xml
 ├── p2.index
-└── 1.0.0/
+└── 1.1.0/
 ```
 
 On the first build of a new project version, the source composite descriptors
@@ -224,13 +224,13 @@ When publishing a new EMF Model Generator release, update the version consistent
 4. The parent `pom.xml` project version, if the update-site build itself should be released with the same version.
 5. The `emf.model.generator.version` property in the parent `pom.xml`, if you keep it as the central version marker for the build.
 
-For example, when moving from `1.0.0` to `1.0.1`, the Maven target-platform dependency should become:
+For example, when moving from `1.1.0` to `1.1.1`, the Maven target-platform dependency should become:
 
 ```xml
 <dependency>
   <groupId>io.github.lorenzobettini</groupId>
   <artifactId>emf-model-generator</artifactId>
-  <version>1.0.1</version>
+  <version>1.1.1</version>
   <type>jar</type>
 </dependency>
 ```

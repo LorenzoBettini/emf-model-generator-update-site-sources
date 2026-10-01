@@ -6,7 +6,7 @@
 
 	<groupId>io.github.lorenzobettini</groupId>
 	<artifactId>emf.model.generator.parent</artifactId>
-	<version>1.0.0</version>
+	<version>1.1.0</version>
 	<packaging>pom</packaging>
 
 	<name>EMF Model Generator Update Site Parent</name>
@@ -26,7 +26,7 @@
 
 		<!-- Change this to the released Maven Central version you want to
 		publish in the p2 site. -->
-		<emf.model.generator.version>1.0.0</emf.model.generator.version>
+		<emf.model.generator.version>1.1.0</emf.model.generator.version>
 
 		<!-- The runtime Maven artifact is already an OSGi bundle with this
 		Bundle-SymbolicName. -->
