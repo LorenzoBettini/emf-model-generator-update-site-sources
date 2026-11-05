@@ -235,6 +235,31 @@ For example, when moving from `2.0.0` to `2.0.1`, the Maven target-platform depe
 </dependency>
 ```
 
+## Release
+
+- Build this project
+- Clone the repository that contains the current published composite update site:
+
+```sh
+cd ~/tmp
+git clone git@github.com:LorenzoBettini/emf-model-generator-update-site.git
+cd emf-model-generator-update-site
+```
+
+- Copy the contents of `emf.model.generator.repository/target/composite` over the clone, e.g.,
+
+```sh
+cp -a ~/work/emf/emf-model-generator-update-site-sources/emf.model.generator.repository/target/composite/* .
+```
+
+- Commit and push the changes to the repository:
+
+```sh
+git add .
+git commit -m "Update to EMF Model Generator 2.0.0"
+git push origin master
+```
+
 ## Notes
 
 This project deliberately avoids `pomDependencies=consider` and `pomDependencies=wrapAsBundle` in the parent POM. The EMF Model Generator artifact is resolved through the Maven location in the `.target` file instead.
