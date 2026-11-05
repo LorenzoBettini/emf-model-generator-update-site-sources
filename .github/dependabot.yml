@@ -14,6 +14,17 @@ updates:
       eclipse-plugin-updates:
         patterns:
          - "org.eclipse.*:*"
+    ignore:
+      # Dependabot's Maven Wrapper updater runs "mvn wrapper:wrapper" inside a
+      # temporary directory that only contains the files Dependabot fetches
+      # (POMs, .target files and wrapper files). It does not copy the Tycho
+      # feature descriptors (feature.xml), so Tycho fails while reading the
+      # reactor with "Could not read feature descriptor" and the whole update
+      # job fails. Bump these two dependencies manually instead, e.g.:
+      #   ./mvnw org.apache.maven.plugins:maven-wrapper-plugin:3.3.4:wrapper \
+      #     -Dmaven=<version> -Dtype=only-script
+      - dependency-name: "org.apache.maven:apache-maven"
+      - dependency-name: "org.apache.maven.wrapper:maven-wrapper"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
